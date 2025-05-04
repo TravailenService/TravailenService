@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Travailen Dashboard</title>
+  <link rel="icon" href="./road-trip.ico" type="image/x-icon">
+
+  <script src="https://kit.fontawesome.com/13da7bdbd3.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --glassy-blue: rgba(29, 205, 255, 0.1);
+      --glassy-blue-border: rgba(29, 205, 255, 0.3);
+      --glassy-blue-solid: #1DCDFF;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+      background: #0a192f;
+      color: #fff;
+    }
+
+    .dashboard h1 {
+      font-family: 'Bauhaus 93', sans-serif; /* Apply Bauhaus 93 font */
+      font-size: 48px;
+      font-weight: 700;
+      color: lightgrey; /* Set text color to light grey */
+      -webkit-text-stroke: 1.5px rgba(55, 60, 61, 0.8); /* Blue outline effect */
+      background: none; /* Remove background gradient */
+      -webkit-background-clip: text;
+      background-clip: text;
+      text-align: center;
+      text-shadow: 0 0 12px rgba(29, 205, 255, 0.4);
+      backdrop-filter: none; /* Remove background blur */
+      padding: 20px;
+      border-radius: 12px;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+      z-index: 2;
+      line-height: 1.2;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    body::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 100%;
+      background: var(--glassy-blue);
+      backdrop-filter: blur(12px);
+      border-right: 1px solid var(--glassy-blue-border);
+      padding: 20px;
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      margin-top: 50px;
+    }
+
+    .sidebar ul li {
+      margin: 20px 0;
+    }
+
+    .sidebar ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .sidebar ul li a:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .sidebar ul li a i {
+      margin-right: 10px;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .dashboard {
+      position: relative;
+      height: 100vh;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-image: url("./image.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+    }
+
+    .dashboard::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    section {
+      padding: 40px 20px;
+      background: var(--glassy-blue);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      margin: 20px 0;
+      border: 1px solid var(--glassy-blue-border);
+    }
+
+    section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    section p {
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .driver-list,
+    .vehicle-list {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .driver-card,
+    .vehicle-card {
+      background: var(--glassy-blue);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glassy-blue-border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .driver-card {
+      width: 200px;
+    }
+
+    .vehicle-card {
+      width: 300px;
+    }
+
+    .vehicle-card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .support-info,
+    .payment-info {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .payment-info img {
+      width: 200px;
+      margin-bottom: 20px;
+    }
+
+    .upi-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px auto;
+      color: white;
+      background-color: var(--glassy-blue);
+      padding: 10px 15px;
+      border-radius: 8px;
+      width: fit-content;
+      max-width: 90%;
+      border: 1px solid var(--glassy-blue-border);
+      backdrop-filter: blur(10px);
+    }
+
+    .copy-btn {
+      margin-left: 10px;
+      cursor: pointer;
+      background-color: var(--glassy-blue);
+      color: white;
+      border: 1px solid var(--glassy-blue-border);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      backdrop-filter: blur(8px);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .copy-btn:hover {
+      background-color: var(--glassy-blue-solid);
+      color: #fff;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        background: var(--glassy-blue);
+        backdrop-filter: blur(10px);
+        border: none;
+        color: #fff;
+        padding: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        z-index: 1001;
+      }
+
+      /* Centering the h1 on mobile */
+      .dashboard h1 {
+    font-size: 32px;
+    position: absolute;
+    top: 20%; /* Vertically center */
+    left: 50%; /* Horizontally center */
+    transform: translate(-50%, -50%); /* Adjust to perfect center */
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: center; /* Ensure text is centered inside the container */
+    opacity: 0; /* Initially hidden */
+    animation: fadeInSlide 2s ease-out forwards; /* Add animation */
+}
+
+@keyframes fadeInSlide {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -100px); /* Start above the center */
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%); /* End in the center */
+    }
+}
+
+
+      section h2 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="menu-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+
+  <nav class="sidebar">
+    <ul>
+      <li><a href="#dashboard"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="#driver"><img src="./test-drive.svg" alt="Steering Wheel" style="width: 25px; height: 25px; vertical-align: middle; margin-right: 8px; filter: brightness(0) invert(1);">Driver</a></li>
+      <li><a href="#vehicle"><i class="fa-solid fa-car"></i> Vehicle</a></li>
+      <li><a href="#payments"><i class="fa-solid fa-indian-rupee-sign"></i> Payments</a></li>
+      <li><a href="#support"><i class="fa-solid fa-headset"></i> Support</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-content">
+    <section id="dashboard" class="dashboard">
+      <h1>Welcome to Travailen</h1>
+    </section>
+
+    <section id="home">
+      <h2>Travailen</h2>
+      <p>Discover the world like never before</p>
+    </section>
+
+    <section id="driver">
+      <h2>Our Drivers</h2>
+      <div class="driver-list">
+        <div class="driver-card"><h3>Guru Prashanth</h3><p>+91 7204483612</p></div>
+        <div class="driver-card"><h3>Hariprasad</h3><p>+91 6363819627</p></div>
+        <div class="driver-card"><h3>Thippesh S</h3><p>+91 888412706</p></div>
+      </div>
+    </section>
+
+    <section id="vehicle">
+      <h2>Our Services</h2>
+      <div class="vehicle-list">
+        <div class="vehicle-card"><img src="./hatchback.svg" alt="Vehicle 1" style="filter: brightness(0) invert(1);" /><p>Hatchback</p></div>
+        <div class="vehicle-card"><img src="./sedan.svg" alt="Vehicle 2" style="filter: brightness(0) invert(1);" /><p>Sedan</p></div>
+        <div class="vehicle-card"><img src="./suv.svg" alt="Vehicle 3" style="filter: brightness(0) invert(1);" /><p>SUV</p></div>
+        <div class="vehicle-card"><img src="./van.svg" alt="Vehicle 4" style="filter: brightness(0) invert(1);" /><p>MPV</p></div>
+        <div class="vehicle-card"><img src="./cargo-truck.svg" alt="Vehicle 5" style="filter: brightness(0) invert(1);" /><p>Cargo Truck</p></div>
+      </div>
+    </section>
+
+    <section id="payments">
+      <h2>Payments</h2>
+      <div class="payment-info">
+        <p>Scan to Pay</p><br/>
+        <img src="./QR Code.jpg" alt="QR Code for UPI Payment" />
+        <p>UPI Payment</p><br/>
+        <div class="upi-container">
+          <img src="./cashless-payment.svg" alt="UPI" style="width: 25px; height: 25px; filter: brightness(0) invert(1);">
+          <span class="upi-text" style="margin-left: 8px;">6363819627@pthdfc</span>
+          <button class="copy-btn" onclick="copyUPI(this)">Copy</button>
+        </div>
+        <div class="upi-container">
+          <img src="./cashless-payment.svg" alt="UPI" style="width: 25px; height: 25px; filter: brightness(0) invert(1);">
+          <span class="upi-text" style="margin-left: 8px;">6363819627@pz</span>
+          <button class="copy-btn" onclick="copyUPI(this)">Copy</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="support">
+      <h2>Support</h2>
+      <div class="support-info">
+        <p><i class="fa-solid fa-square-phone"></i> +91 6363819627</p><br/>
+        <p><i class="fa-solid fa-envelope"></i> travailen133@gmail.com</p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.classList.toggle('active');   
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+        if (window.innerWidth <= 768) {
+          toggleSidebar();
+        }
+      });
+    });
+
+    function copyUPI(button) {
+      const container = button.closest('.upi-container');
+      const text = container.querySelector('.upi-text').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("UPI ID copied: " + text);
+      }).catch(err => {
+        console.error("Failed to copy: ", err);
+      });
+    }
+  </script>
+</body>
+</html>
