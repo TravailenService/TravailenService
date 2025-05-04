@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Travailen Dashboard</title>
   <link rel="icon" href="./road-trip.ico" type="image/x-icon">
-
   <script src="https://kit.fontawesome.com/13da7bdbd3.js" crossorigin="anonymous"></script>
   <style>
     :root {
@@ -30,17 +29,13 @@
     }
 
     .dashboard h1 {
-      font-family: 'Bauhaus 93', sans-serif; /* Apply Bauhaus 93 font */
+      font-family: 'Bauhaus 93', sans-serif;
       font-size: 48px;
       font-weight: 700;
-      color: lightgrey; /* Set text color to light grey */
-      -webkit-text-stroke: 1.5px rgba(55, 60, 61, 0.8); /* Blue outline effect */
-      background: none; /* Remove background gradient */
-      -webkit-background-clip: text;
-      background-clip: text;
+      color: lightgrey;
+      -webkit-text-stroke: 1.5px rgba(55, 60, 61, 0.8);
       text-align: center;
       text-shadow: 0 0 12px rgba(29, 205, 255, 0.4);
-      backdrop-filter: none; /* Remove background blur */
       padding: 20px;
       border-radius: 12px;
       opacity: 0;
@@ -108,14 +103,14 @@
 
     .main-content {
       margin-left: 250px;
-      min-height: 100vh;
+      min-height: 98vh;
       position: relative;
     }
 
     .dashboard {
       position: relative;
+      padding: 100px 20px;
       height: 100vh;
-      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -137,12 +132,17 @@
       z-index: 1;
     }
 
+    .dashboard h1 {
+      position: relative;
+      z-index: 2;
+    }
+
     section {
       padding: 40px 20px;
       background: var(--glassy-blue);
       backdrop-filter: blur(15px);
       border-radius: 15px;
-      margin: 20px 0;
+      margin: 20px;
       border: 1px solid var(--glassy-blue-border);
     }
 
@@ -239,6 +239,17 @@
       display: none;
     }
 
+    footer {
+      width: 100%;
+      text-align: center;
+      padding: 30px 0;
+      color: #ccc;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 16px;
+      margin-top: 30px;
+    }
+
     @media (max-width: 768px) {
       .sidebar {
         transform: translateX(-100%);
@@ -268,35 +279,16 @@
         z-index: 1001;
       }
 
-      /* Centering the h1 on mobile */
       .dashboard h1 {
-    font-size: 32px;
-    position: absolute;
-    top: 20%; /* Vertically center */
-    left: 50%; /* Horizontally center */
-    transform: translate(-50%, -50%); /* Adjust to perfect center */
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    text-align: center; /* Ensure text is centered inside the container */
-    opacity: 0; /* Initially hidden */
-    animation: fadeInSlide 2s ease-out forwards; /* Add animation */
-}
-
-@keyframes fadeInSlide {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -100px); /* Start above the center */
-    }
-    100% {
-        opacity: 1;
-        transform: translate(-50%, -50%); /* End in the center */
-    }
-}
-
+        font-size: 32px;
+      }
 
       section h2 {
         font-size: 28px;
+      }
+
+      footer {
+        margin-left: 0;
       }
     }
   </style>
@@ -329,7 +321,6 @@
       <div class="driver-list">
         <div class="driver-card"><h3>Guru Prashanth</h3><p>+91 7204483612</p></div>
         <div class="driver-card"><h3>Hariprasad</h3><p>+91 6363819627</p></div>
-       
       </div>
     </section>
 
@@ -370,6 +361,10 @@
         <p><i class="fa-solid fa-envelope"></i> travailen133@gmail.com</p>
       </div>
     </section>
+
+    <footer>
+      Designed by <strong>" The Next Gen Group "</strong>
+    </footer>
   </div>
 
   <script>
